@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Farming Kodur</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;800&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f6ec;--card:#fff;--ink:#1b2a1e;--mute:#5b6b5e;--line:#d6e0cf;--green:#2d6a3e;--on:#fff;--sky:#2b7bb9;--warn:#b4691a;--soil:#2a2420;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a14;--card:#1b261e;--ink:#e8f0e4;--mute:#9db09f;--line:#2e3d31;--green:#6cc088;--on:#0f1a12;--sky:#6db3e6;--warn:#e0a050}}
+:root[data-theme="dark"]{--bg:#121a14;--card:#1b261e;--ink:#e8f0e4;--mute:#9db09f;--line:#2e3d31;--green:#6cc088;--on:#0f1a12;--sky:#6db3e6;--warn:#e0a050}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Noto Sans Telugu',system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque','Noto Sans Telugu',system-ui,sans-serif;line-height:1.2;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:640px;margin:0 auto}
+.login{min-height:100vh;display:flex;flex-direction:column}
+.hero{background:linear-gradient(160deg,#1f4d2c,#2d6a3e 60%,#6a7a2a);color:#fff;padding:44px 22px 70px}
+.hero h1{font-size:clamp(30px,8vw,44px);font-weight:800;margin:14px 0 8px}
+.hero p{margin:0;max-width:40ch;opacity:.92}
+.logo{width:54px;height:54px;border-radius:16px;background:#fff3;display:grid;place-items:center;font-size:30px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:-44px 16px 16px;box-shadow:0 8px 30px #0002}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--card)}
+.lang button{background:none;border:0;padding:5px 12px;font-size:14px;color:var(--ink)}
+.top .lang button{color:inherit}
+.lang button[aria-pressed=true]{background:var(--green);color:var(--on)}
+label,.lbl{display:block;font-weight:600;margin:12px 0 6px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.btn{width:100%;margin-top:16px;padding:13px;border:0;border-radius:12px;background:var(--green);color:var(--on);font-weight:700}
+.err{color:#b3362b;margin:8px 0 0;min-height:1.4em;font-size:14px}
+.feats{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 24px;color:var(--mute);font-size:14px}
+.feats span{border:1px solid var(--line);border-radius:99px;padding:3px 10px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;background:var(--green);color:var(--on)}
+.top b{font:800 18px 'Bricolage Grotesque','Noto Sans Telugu',sans-serif}
+.top .lang{background:transparent;border-color:currentColor}
+.top .lang button[aria-pressed=true]{background:var(--on);color:var(--green)}
+.out{background:none;border:1px solid currentColor;border-radius:99px;padding:4px 12px;font-size:14px;background:transparent}
+main{padding:16px 16px 150px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+.row{display:grid;gap:0 14px}
+@media(min-width:560px){.row{grid-template-columns:1fr 1fr}}
+.chips{display:flex;gap:10px}
+.chip{flex:1;position:relative;margin:0}
+.chip input{position:absolute;opacity:0;width:1px}
+.chip span{display:flex;align-items:center;gap:10px;padding:10px 12px;border:2px solid var(--line);border-radius:10px;cursor:pointer;font-weight:600}
+.chip i{width:22px;height:22px;border-radius:50%;flex:none}
+.chip input:checked+span{border-color:var(--green)}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.empty{color:var(--mute);text-align:center;padding:22px 10px}
+.tag{display:inline-block;padding:3px 10px;border-radius:99px;font-size:14px;font-weight:600;border:1px solid currentColor}
+.good{color:var(--green)}.warn{color:var(--warn)}
+.grid{display:grid;gap:12px}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+.stat h3{font-size:15px;color:var(--mute);font-weight:600;margin-bottom:4px}
+.stat b{font-size:19px;display:block}
+ul{margin:8px 0 0;padding-left:20px}
+.fc{display:flex;gap:8px;overflow-x:auto}
+.fc div{flex:1;min-width:76px;text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px 4px}
+.bar2{height:6px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden}
+.bar2 i{display:block;height:100%;background:var(--sky)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;background:none;border:0;padding:8px 2px 9px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--mute)}
+nav button span{font-size:21px}
+nav button[aria-current=true]{color:var(--green);font-weight:700}
+.fab{position:fixed;right:14px;bottom:calc(74px + env(safe-area-inset-bottom,0px));border:0;border-radius:99px;background:var(--sky);color:#fff;padding:12px 18px;font-weight:700;box-shadow:0 6px 20px #0003}
+.chat{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);z-index:5}
+.msgs{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.m{max-width:86%;padding:10px 13px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.m.u{align-self:flex-end;background:var(--green);color:var(--on)}
+.m.b{align-self:flex-start;background:var(--card);border:1px solid var(--line)}
+.m button{display:block;margin-top:6px;background:none;border:0;color:var(--sky);padding:0;font-size:14px}
+.sug{display:flex;gap:8px;overflow-x:auto;padding:0 16px 8px}
+.sug button{flex:none;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:6px 12px;font-size:14px}
+.inp{display:flex;gap:8px;padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--card)}
+.inp input{flex:1}
+.inp button{border:0;border-radius:10px;padding:0 14px;background:var(--green);color:var(--on);font-weight:700}
+.inp .mic{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div id="login" class="login" hidden>
+<div class="hero"><div class="lang" role="group" aria-label="Language" id="lg1"></div>
+<div class="logo">🌾</div><h1 id="l-title"></h1><p id="l-sub"></p></div>
+<div class="box wrap" style="width:calc(100% - 32px)">
+<label for="nm" id="l-nm"></label><input id="nm" autocomplete="name">
+<label for="ph" id="l-ph"></label><input id="ph" inputmode="numeric" maxlength="10" autocomplete="tel">
+<label for="vl" id="l-vl"></label><select id="vl"><option>Kodur / కోడూరు</option></select>
+<p class="err" id="l-err"></p><button class="btn" id="go"></button></div>
+<div class="feats wrap" id="l-feat"></div></div>
+
+<div id="app" hidden>
+<div class="top"><b id="a-brand"></b><span><span class="lang" id="lg2" role="group" aria-label="Language"></span> <button class="out" id="lo"></button></span></div>
+<main class="wrap"><div id="home"></div><section id="out" aria-live="polite"></section></main>
+<button class="fab" id="fab"></button>
+<nav id="nav"></nav></div>
+
+<div id="chat" class="chat" hidden>
+<div class="top"><b id="c-title"></b><button class="out" id="cx"></button></div>
+<div class="msgs" id="msgs" aria-live="polite"></div>
+<div class="sug" id="sug"></div>
+<div class="inp"><button class="mic" id="mic" aria-label="Speak">🎤</button><input id="q" autocomplete="off"><button id="send"></button></div></div>
+
+<script>
+var T={
+en:{lt:"Smart Farming for Kodur",ls:"Free advice on crops, water, pests and weather, in Telugu and English.",nm:"Your name",ph:"Mobile number",vl:"Village",go:"Login",e1:"Enter your name.",e2:"Enter a 10-digit mobile number.",
+feat:["🌱 Crop advice","🐛 Pest help","💧 Smart irrigation","⛅ Weather alerts","🤖 AI assistant"],brand:"Smart Farming",lo:"Logout",hi:"Hello",field:"My field",sea:"Season",soil:"Soil",crp:"Crop",pick:"Choose crop",black:"Black soil",red:"Red soil",
+seas:{kharif:"Kharif (Jun–Oct)",rabi:"Rabi (Nov–Feb)",summer:"Summer (Mar–May)"},nav:["Home","Crop","Pests","Water","Weather"],ask:"🤖 Ask AI",
+empty:"Choose soil, season and crop on Home to see your advice.",fit:"Crop fit",best:"Best for your field",good:"Good choice",poor:"Not the best choice",water:"Water every",days:"days",sched:"Irrigation",
+pest:"Pest and disease risk",wx:"Weather",wxOk:"No heavy rain expected",wxRain:"Heavy rain likely. Skip irrigation and check drainage.",hot:"Hot days ahead. Irrigate in the evening.",top:"Top crops for ",
+ins:"Insect pest: check the underside of leaves early in the morning. Try neem oil spray first and ask your Rythu Bharosa Kendram before using any chemical.",
+fun:"Fungal disease: remove infected leaves, avoid watering late in the day and keep rows airy. Ask your Rythu Bharosa Kendram for the right fungicide.",
+iTip:"Red soil drains fast, so water lightly and more often.",bTip:"Black soil holds water, so water less often and avoid waterlogging.",drip:"Drip irrigation can save 30–50% water.",rain:"rain",
+ct:"AI assistant",ph2:"Type your question…",send:"Send",think:"Thinking…",listen:"🔊 Listen",close:"Close",
+hello:"Hello! I am your farming assistant. Ask me in Telugu or English about crops, water, pests or weather.",
+sg:["Which crop is best for my field?","When should I water?","How do I stop pests?","Will it rain this week?"],
+fb:"The AI service is not available right now. Here is your field summary:",nov:"Voice playback is not available in this view. Open the page in Chrome.",nov2:"No Telugu voice found on this phone. Go to Settings → Languages → Text-to-speech output, install Telugu voice data, then try again.",nomic:"Voice input is not available in this view. Open the page in Chrome, or type your question."},
+te:{lt:"కోడూరు కోసం స్మార్ట్ ఫార్మింగ్",ls:"పంటలు, నీరు, తెగుళ్లు, వాతావరణంపై ఉచిత సలహా, తెలుగు మరియు ఇంగ్లీష్‌లో.",nm:"మీ పేరు",ph:"మొబైల్ నంబర్",vl:"గ్రామం",go:"లాగిన్",e1:"మీ పేరు రాయండి.",e2:"10 అంకెల మొబైల్ నంబర్ ఇవ్వండి.",
+feat:["🌱 పంట సలహా","🐛 తెగుళ్ల సహాయం","💧 స్మార్ట్ నీటి పారుదల","⛅ వాతావరణ హెచ్చరికలు","🤖 AI సహాయకుడు"],brand:"స్మార్ట్ ఫార్మింగ్",lo:"లాగౌట్",hi:"నమస్కారం",field:"నా పొలం",sea:"సీజన్",soil:"నేల",crp:"పంట",pick:"పంటను ఎంచుకోండి",black:"నల్ల నేల",red:"ఎర్ర నేల",
+seas:{kharif:"ఖరీఫ్ (జూన్–అక్టో)",rabi:"రబీ (నవం–ఫిబ్ర)",summer:"వేసవి (మార్చి–మే)"},nav:["హోమ్","పంట","తెగుళ్లు","నీరు","వాతావరణం"],ask:"🤖 AI ని అడగండి",
+empty:"హోమ్‌లో నేల, సీజన్, పంటను ఎంచుకుంటే సలహా కనిపిస్తుంది.",fit:"పంట అనుకూలత",best:"మీ పొలానికి అత్యుత్తమం",good:"మంచి ఎంపిక",poor:"ఉత్తమ ఎంపిక కాదు",water:"నీరు పెట్టండి ప్రతి",days:"రోజులకు",sched:"నీటి పారుదల",
+pest:"తెగుళ్ల ప్రమాదం",wx:"వాతావరణం",wxOk:"భారీ వర్షం సూచన లేదు",wxRain:"భారీ వర్షం రావచ్చు. నీరు పెట్టకండి, నీటి పారుదల చూడండి.",hot:"వేడి రోజులు వస్తున్నాయి. సాయంత్రం నీరు పెట్టండి.",top:"ఉత్తమ పంటలు: ",
+ins:"కీటక తెగులు: ఉదయం ఆకుల అడుగు భాగం చూడండి. ముందుగా వేప నూనె పిచికారీ చేయండి; రసాయనాల ముందు రైతు భరోసా కేంద్రంలో అడగండి.",
+fun:"శిలీంధ్ర తెగులు: సోకిన ఆకులు తీసివేయండి, సాయంత్రం నీరు పెట్టకండి, గాలి ఆడేలా చూడండి. సరైన మందు కోసం రైతు భరోసా కేంద్రంలో అడగండి.",
+iTip:"ఎర్ర నేల నీటిని త్వరగా పోనిస్తుంది, తక్కువగా కానీ తరచుగా నీరు పెట్టండి.",bTip:"నల్ల నేల నీటిని నిలుపుకుంటుంది, తక్కువసార్లు నీరు పెట్టండి.",drip:"డ్రిప్ సేద్యంతో 30–50% నీరు ఆదా అవుతుంది.",rain:"వర్షం",
+ct:"AI సహాయకుడు",ph2:"మీ ప్రశ్న రాయండి…",send:"పంపు",think:"ఆలోచిస్తున్నాను…",listen:"🔊 వినండి",close:"మూసివేయి",
+hello:"నమస్కారం! నేను మీ వ్యవసాయ సహాయకుడిని. పంటలు, నీరు, తెగుళ్లు, వాతావరణం గురించి తెలుగులో లేదా ఇంగ్లీష్‌లో అడగండి.",
+sg:["నా పొలానికి ఏ పంట మంచిది?","ఎప్పుడు నీరు పెట్టాలి?","తెగుళ్లను ఎలా ఆపాలి?","ఈ వారం వర్షం వస్తుందా?"],
+fb:"AI సేవ ప్రస్తుతం అందుబాటులో లేదు. మీ పొలం సారాంశం ఇది:",nov:"ఈ వ్యూలో వాయిస్ పనిచేయదు. పేజీని Chrome లో తెరవండి.",nov2:"ఈ ఫోన్‌లో తెలుగు వాయిస్ లేదు. సెట్టింగ్స్ → భాషలు → టెక్స్ట్-టు-స్పీచ్ లో తెలుగు వాయిస్ డేటా ఇన్‌స్టాల్ చేసి మళ్లీ ప్రయత్నించండి.",nomic:"ఈ వ్యూలో వాయిస్ ఇన్‌పుట్ పనిచేయదు. పేజీని Chrome లో తెరవండి లేదా ప్రశ్న టైప్ చేయండి."}};
+var C={rice:["Rice","వరి",3],groundnut:["Groundnut","వేరుశనగ",8],cotton:["Cotton","పత్తి",10],tomato:["Tomato","టమాటా",5],banana:["Banana","అరటి",4],chilli:["Chilli","మిరప",6],maize:["Maize","మొక్కజొన్న",8],gram:["Bengal gram","శనగ",15]};
+var P={rice:[["Stem borer","కాండం తొలుచు పురుగు","i"],["Blast","అగ్గి తెగులు","f"]],groundnut:[["Leaf miner","ఆకు తొలుచు పురుగు","i"],["Tikka leaf spot","టిక్కా ఆకు మచ్చ","f"]],cotton:[["Pink bollworm","గులాబీ రంగు కాయ పురుగు","i"],["Whitefly","తెల్ల దోమ","i"]],tomato:[["Early blight","ఎర్లీ బ్లైట్","f"],["Fruit borer","కాయ తొలుచు పురుగు","i"]],banana:[["Sigatoka leaf spot","సిగటోకా ఆకు మచ్చ","f"],["Rhizome weevil","దుంప పురుగు","i"]],chilli:[["Thrips","తామర పురుగు","i"],["Anthracnose","ఆంత్రాక్నోస్","f"]],maize:[["Fall armyworm","కత్తెర పురుగు","i"],["Leaf blight","ఆకు ఎండు తెగులు","f"]],gram:[["Pod borer","కాయ తొలుచు పురుగు","i"],["Wilt","ఎండు తెగులు","f"]]};
+var R={"black-kharif":["cotton","maize","chilli","rice"],"black-rabi":["gram","maize","chilli"],"black-summer":["maize","tomato","banana"],"red-kharif":["groundnut","maize","tomato"],"red-rabi":["groundnut","gram","tomato"],"red-summer":["tomato","banana","groundnut"]};
+var WX=[[33,10],[34,20],[31,70],[29,80],[32,30]];
+var S={L:"en",user:null,soil:"",sea:"",crp:"",tab:0},H=[];
+// Paste your Google Apps Script web app URL below (see setup steps)
+var AI_URL="https://script.google.com/macros/s/AKfycbzDG_8SAZPk9IjcR4Vi7rSkFMivcSaLApxPzyuOy0AwYkwqFiifhd2LU_CK1XQRG0q9/exec";
+var $=function(i){return document.getElementById(i)};
+function save(){try{localStorage.setItem("kf1",JSON.stringify(S))}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem("kf1")||"null");if(d)for(var k in d)S[k]=d[k]}catch(e){}}
+function t(){return T[S.L]}
+function nm(k){return C[k][S.L=="en"?0:1]}
+function langBtns(){return '<button data-l="te" aria-pressed="'+(S.L=="te")+'">తెలుగు</button><button data-l="en" aria-pressed="'+(S.L=="en")+'">English</button>'}
+function calc(){
+var w=C[S.crp][2],sm=S.soil=="black"?1.3:.8,ss=S.sea=="summer"?.7:S.sea=="kharif"?1.2:1;
+var list=R[S.soil+"-"+S.sea],i=list.indexOf(S.crp);
+return{d:Math.max(2,Math.round(w*sm*ss)),list:list,fit:i==0?"best":i>0?"good":"poor",rain:WX.some(function(x){return x[1]>=60}),hot:WX.some(function(x){return x[0]>=35})}}
+function wxMsg(r){return r.rain?t().wxRain:r.hot?t().hot:t().wxOk}
+function ready(){return S.soil&&S.sea&&S.crp}
+function fill(){
+var x=t();document.documentElement.lang=S.L;
+$("lg1").innerHTML=langBtns();$("lg2").innerHTML=langBtns();
+$("l-title").textContent=x.lt;$("l-sub").textContent=x.ls;$("l-nm").textContent=x.nm;$("l-ph").textContent=x.ph;$("l-vl").textContent=x.vl;$("go").textContent=x.go;
+$("l-feat").innerHTML=x.feat.map(function(f){return "<span>"+f+"</span>"}).join("");
+$("a-brand").textContent="🌾 "+x.brand;$("lo").textContent=x.lo;$("fab").textContent=x.ask;
+$("nav").innerHTML=x.nav.map(function(n,i){return '<button data-i="'+i+'"'+(S.tab==i?' aria-current="true"':"")+'><span>'+["🏠","🌱","🐛","💧","⛅"][i]+"</span>"+n+"</button>"}).join("");
+$("c-title").textContent="🤖 "+x.ct;$("cx").textContent=x.close;$("q").placeholder=x.ph2;$("send").textContent=x.send;
+$("sug").innerHTML=x.sg.map(function(s){return "<button>"+s+"</button>"}).join("");
+home();render();
+}
+function home(){
+var x=t(),h="";
+if(S.tab==0&&S.user){
+h='<div class="card"><h2>'+x.hi+", "+esc(S.user.name)+' 👋</h2></div><div class="card"><h3>'+x.field+'</h3><div class="row"><div><span class="lbl">'+x.soil+'</span><div class="chips">'+
+[["black",x.black,"#2a2420"],["red",x.red,"#a8432a"]].map(function(o){return '<label class="chip"><input type="radio" name="soil" value="'+o[0]+'"'+(S.soil==o[0]?" checked":"")+'><span><i style="background:'+o[2]+'"></i>'+o[1]+"</span></label>"}).join("")+
+'</div></div><div><label for="sea">'+x.sea+'</label><select id="sea"><option value="">–</option>'+Object.keys(x.seas).map(function(k){return '<option value="'+k+'"'+(S.sea==k?" selected":"")+">"+x.seas[k]+"</option>"}).join("")+
+'</select></div><div><label for="crp">'+x.crp+'</label><select id="crp"><option value="">'+x.pick+"</option>"+Object.keys(C).map(function(k){return '<option value="'+k+'"'+(S.crp==k?" selected":"")+">"+nm(k)+"</option>"}).join("")+"</select></div></div></div>"}
+$("home").innerHTML=h}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function render(){
+var x=t(),o=$("out");
+if(!ready()){o.innerHTML=S.tab==0?"":'<div class="card empty">'+x.empty+"</div>";return}
+var r=calc(),p=P[S.crp],h="",f='<span class="tag '+(r.fit=="poor"?"warn":"good")+'">'+x[r.fit]+"</span>";
+if(S.tab==0)h='<div class="grid"><div class="card stat"><h3>'+x.fit+"</h3><b>"+nm(S.crp)+"</b>"+f+'</div><div class="card stat"><h3>'+x.sched+"</h3><b>"+x.water+" "+r.d+" "+x.days+'</b></div><div class="card stat"><h3>'+x.pest+"</h3><b>"+p.map(function(q){return q[S.L=="en"?0:1]}).join(", ")+'</b></div><div class="card stat"><h3>'+x.wx+'</h3><b class="'+(r.rain?"warn":"good")+'">'+wxMsg(r)+"</b></div></div>";
+else if(S.tab==1)h='<div class="card"><h3>'+nm(S.crp)+"</h3><p>"+f+'</p><h3 style="font-size:17px">'+x.top+(S.soil=="black"?x.black:x.red)+"</h3><ul>"+r.list.map(function(k){return "<li>"+nm(k)+"</li>"}).join("")+"</ul></div>";
+else if(S.tab==2)h=p.map(function(q){return '<div class="card"><h3>'+q[S.L=="en"?0:1]+"</h3><p>"+(q[2]=="i"?x.ins:x.fun)+"</p></div>"}).join("");
+else if(S.tab==3)h='<div class="card"><h3>'+x.water+" "+r.d+" "+x.days+"</h3><p>"+(S.soil=="red"?x.iTip:x.bTip)+"</p><p>"+x.drip+"</p></div>";
+else h='<div class="card"><h3 class="'+(r.rain?"warn":"good")+'">'+wxMsg(r)+'</h3><div class="fc" style="margin-top:12px">'+WX.map(function(w){return "<div><b>"+w[0]+"°C</b><br><small>"+w[1]+"% "+x.rain+'</small><div class="bar2"><i style="width:'+w[1]+'%"></i></div></div>'}).join("")+"</div></div>";
+o.innerHTML=h}
+function show(){var u=!!S.user;$("login").hidden=u;$("app").hidden=!u;fill()}
+function summary(){
+if(!ready())return t().empty;
+var r=calc(),p=P[S.crp].map(function(q){return q[S.L=="en"?0:1]}).join(", ");
+return nm(S.crp)+" – "+t()[r.fit]+"\n"+t().water+" "+r.d+" "+t().days+"\n"+t().pest+": "+p+"\n"+wxMsg(r)}
+function addMsg(c,txt){var d=document.createElement("div");d.className="m "+c;d.textContent=txt;$("msgs").appendChild(d);$("msgs").scrollTop=1e6;return d}
+function speak(txt){
+try{
+var ss=window.speechSynthesis;if(!ss||!window.SpeechSynthesisUtterance){addMsg("b",t().nov);return}
+ss.cancel();
+var te=/[\u0C00-\u0C7F]/.test(txt),u=new SpeechSynthesisUtterance(txt),vs=ss.getVoices();
+var v=vs.filter(function(x){return x.lang.replace("_","-").toLowerCase().indexOf(te?"te":"en")==0})[0];
+if(te&&!v){addMsg("b",t().nov2);return}
+if(v)u.voice=v;u.lang=v?v.lang:"en-IN";u.onerror=function(){addMsg("b",t().nov)};
+ss.speak(u)}catch(e){addMsg("b",t().nov)}}
+function addListen(d){var b=document.createElement("button");b.textContent=t().listen;b.onclick=function(){speak(d.firstChild.textContent)};d.appendChild(b)}
+function sys(){
+var f=ready()?"Soil: "+S.soil+", season: "+S.sea+", crop: "+C[S.crp][0]+". Computed advice: "+summary().replace(/\n/g,"; "):"The farmer has not chosen soil, season and crop yet.";
+return "You are a friendly farming assistant for smallholder farmers in Kodur, Andhra Pradesh. Reply in the language of the farmer's latest message (Telugu script for Telugu, including Telugu typed in English letters; English for English). App language: "+(S.L=="te"?"Telugu":"English")+". Use very simple words, at most 5 short sentences. Cover crops, irrigation, pests and weather only. Weather figures in this app are samples, so say forecasts need checking. Never name pesticide doses; suggest neem oil first and the Rythu Bharosa Kendram for chemicals. Farmer's field: "+f}
+async function ask(q){
+addMsg("u",q);H.push({role:"user",content:q});
+var b=addMsg("b",t().think);
+try{
+if(AI_URL.indexOf("http")!=0)throw 0;
+var res=await fetch(AI_URL,{method:"POST",body:JSON.stringify({system:sys(),messages:H})});
+var j=await res.json();if(!j.text)throw 0;
+b.textContent=j.text;H.push({role:"assistant",content:j.text})
+}catch(e){b.textContent=t().fb+"\n"+summary();H.pop()}
+addListen(b);$("msgs").scrollTop=1e6}
+function sendQ(){var v=$("q").value.trim();if(!v)return;$("q").value="";ask(v)}
+function openChat(){$("chat").hidden=false;if(!$("msgs").children.length){var d=addMsg("b",t().hello);addListen(d)}$("q").focus()}
+document.addEventListener("click",function(e){
+var b=e.target.closest("button");if(!b)return;
+if(b.dataset.l){S.L=b.dataset.l;save();fill()}
+else if(b.dataset.i){S.tab=+b.dataset.i;fill();scrollTo(0,0)}
+else if(b.id=="go"){
+var n=$("nm").value.trim(),p=$("ph").value.trim();
+if(!n)$("l-err").textContent=t().e1;else if(!/^\d{10}$/.test(p))$("l-err").textContent=t().e2;
+else{S.user={name:n,phone:p};save();show()}}
+else if(b.id=="lo"){S.user=null;S.tab=0;save();show()}
+else if(b.id=="fab")openChat();
+else if(b.id=="cx"){$("chat").hidden=true;try{speechSynthesis.cancel()}catch(x){}}
+else if(b.id=="send")sendQ();
+else if(b.parentNode.id=="sug")ask(b.textContent);
+else if(b.id=="mic"){
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){addMsg("b",t().nomic);return}
+var r=new SR();r.lang=S.L=="te"?"te-IN":"en-IN";r.onresult=function(v){$("q").value=v.results[0][0].transcript;sendQ()};r.onerror=function(){addMsg("b",t().nomic)};try{r.start()}catch(x){addMsg("b",t().nomic)}}
+});
+document.addEventListener("change",function(e){
+if(e.target.name=="soil")S.soil=e.target.value;else if(e.target.id=="sea")S.sea=e.target.value;else if(e.target.id=="crp")S.crp=e.target.value;else return;
+save();render()});
+$("q").addEventListener("keydown",function(e){if(e.key=="Enter")sendQ()});
+try{speechSynthesis.getVoices()}catch(e){}
+load();show();
+</script>
+</body>
+</html>
